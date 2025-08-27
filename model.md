@@ -20,6 +20,7 @@ Machine - Target - Url - Domain, etc.
 
 - 🔪 [Weaponization]  -- Create a payload or search for one CVE etc, that can work with the target
                           Why is this optional. cause sometimes is implicit you need a weapon to next stage
+                          May be as part of report we can show it as a CVE list if it exists. 
 
 - 🎯 📨 Delivery       -- The method to delivery payload , email, form, POST, malicious link, infected USB, watering-hole attack
 
@@ -38,3 +39,7 @@ Machine - Target - Url - Domain, etc.
                            ransomware deployment, sabotage, espionage, or disruption 
 
 
+Basically findings are targered to find how the attack can be exploited and what can do the postexplotation. 
+I mean you can explain a client, ok the attacker can install a RAT and steal the information, but you dont need to explain how a RAT works.
+
+In short, is basically to how the attack is performed (delivery), a short explanation of hwo the attack works (explotation), and what actions can the attackers perform applying this (actions). 
