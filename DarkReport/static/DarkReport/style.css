@@ -1,9 +1,9 @@
 body {
-    background-color: #343a40;
+    background-color: #1c2026;
     height: 100vh;
     display: flex;
     overflow: hidden;
-    color: rgb(255, 255, 255);
+    color: white;
 }
 .sidebar {
     width: 350px;
@@ -17,7 +17,7 @@ body {
     margin-bottom: 15px;
 }
 .sidebar a {
-    color: hsla(0, 2%, 8%, 0.518)
+    color: white;
     text-decoration: none;
     display: block;
     padding: 8px;
@@ -36,6 +36,22 @@ body {
 }
 .modal-content{
     background-color:rgb(2, 2, 2);
-    color:white_;
+    color:gray;
+
+}
+
+.h2 {
+    color: white;
+}
+
+.list-group.mb-3 .list-group-item {
+  background-color: black;
+  color: white;
+  border: 1px solid #333; /* opcional, para ver los bordes */
+}
+
+.accordion .accordion-item .accordion-button{
+    background-color: black;
+    color: white;
 
 }

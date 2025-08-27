@@ -24,7 +24,7 @@ Machine - Target - Url - Domain, etc.
 
 - 🎯 📨 Delivery       -- The method to delivery payload , email, form, POST, malicious link, infected USB, watering-hole attack
 
-- 🪲 Explotation    -- CVE itself, How the payload works - Sometimes we dont know how the exploit works, just a shellcode
+- 🐞 Explotation    -- CVE itself, How the payload works - Sometimes we dont know how the exploit works, just a shellcode
 
 - 🎁 [Installation]   --  Explanation FLI  (e.g., rootkits, Trojans, backdoors, webshell).
                           Why is this optional cause sometimes you dont need to make an instalation to obtain RCE. In terms of pentestings is should be done to escalate privileges, but not always mandatory. 
