@@ -11,14 +11,13 @@ class ProjectForm(forms.ModelForm):
 class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
-        fields = ['project', 'target_name']
+        fields = ['target_name']
 
 
 class FindForm(forms.ModelForm):
     class Meta:
         model = Find
         fields = [
-            'report',
             'reconnaissance',
             'weaponization',
             'delivery',

@@ -1,0 +1,41 @@
+body {
+    background-color: #343a40;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+}
+.sidebar {
+    width: 350px;
+    background-color: #0c0d0e;
+    color: white;
+    padding: 15px;
+    overflow-y: auto;
+}
+.sidebar h4 {
+    color: #4dff07;
+    margin-bottom: 15px;
+}
+.sidebar a {
+    color: hsla(0, 2%, 8%, 0.518)
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    border-radius: 6px;
+}
+.sidebar a:hover {
+    background-color: #495057;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+.text-muted {
+    color: grey;
+}
+.modal-content{
+    background-color:rgb(2, 2, 2);
+    color:white_;
+
+}

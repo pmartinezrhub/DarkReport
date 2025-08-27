@@ -20,7 +20,7 @@ Machine - Target - Url - Domain, etc.
 
 - 🔪 [Weaponization]  -- Create a payload or search for one CVE etc, that can work with the target
                           Why is this optional. cause sometimes is implicit you need a weapon to next stage
-                          May be as part of report we can show it as a CVE list if it exists. 
+                          May be as part of report we can show it as a CVE list if it exists.  
 
 - 🎯 📨 Delivery       -- The method to delivery payload , email, form, POST, malicious link, infected USB, watering-hole attack
 

@@ -1,7 +1,8 @@
 from django.db import models
 
 class Project(models.Model):
-    project_name = models.CharField(max_length=30)
+    project_name = models.CharField(max_length=50)
+    description = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.project_name
@@ -36,5 +37,5 @@ class Vuln(models.Model):
         return self.vuln_name
 
 
-class CVE(model.Model):
+class CVE(models.Model):
     cve_id = models.CharField(max_length=15)
