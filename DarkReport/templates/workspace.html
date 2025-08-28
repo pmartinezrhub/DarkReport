@@ -52,15 +52,15 @@
 
     <!-- Panel de estadísticas -->
     <div class="stats mb-4 d-flex gap-4">
-        <div class="stat card p-3 text-center"  data-bs-theme="dark" style="flex: 1;">
+        <div class="stat card p-3 text-center" style="flex: 1;background-color: rgb(15, 20, 29);">
             <h6>Projects</h6>
             <p class="fs-4">{{ total_projects }}</p>
         </div>
-        <div class="stat card p-3 text-center" data-bs-theme="dark" style="flex: 1;">
+        <div class="stat card p-3 text-center" style="flex: 1;background-color: rgb(15, 20, 29);">
             <h6>Reports</h6>
             <p class="fs-4">{{ total_reports }}</p>
         </div>
-        <div class="stat card p-3 text-center" data-bs-theme="dark" style="flex: 1;">
+        <div class="stat card p-3 text-center" style="flex: 1;background-color: rgb(15, 20, 29);">
             <h6>Finds</h6>
             <p class="fs-4">{{ total_finds }}</p>
         </div>
@@ -195,7 +195,7 @@ fetch('/graph-data/')
                 labels: data.cve.labels,
                 datasets: [{
                     data: data.cve.data,
-                    backgroundColor: ['#ff6384','#36a2eb','#ffcd56','#4bc0c0','#9966ff','#c9cbcf']
+                    backgroundColor: ['#00ff00','#36a2eb','#ffcd56','#4bc0c0','#9966ff','#c9cbcf']
                 }]
             },
             options: {
@@ -211,7 +211,7 @@ fetch('/graph-data/')
                 labels: data.vulnerability.labels,
                 datasets: [{
                     data: data.vulnerability.data,
-                    backgroundColor: ['#ff6384','#36a2eb','#ffcd56','#4bc0c0','#9966ff','#c9cbcf']
+                    backgroundColor: ['#00ff00','#36a2eb','#ffcd56','#4bc0c0','#9966ff','#c9cbcf']
                 }]
             },
             options: {
