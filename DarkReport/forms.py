@@ -12,15 +12,31 @@ class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = ['target']
+        widgets = {
+            'target': forms.TextInput(attrs={
+                'class': 'form-control',   
+                'placeholder': 'Write target...',
+                'size': 120               
+            })
+        }
 
 
 class FindForm(forms.ModelForm):
     vulnerability = forms.ChoiceField(
-        choices=load_vulnerabilities(),
+        choices=load_vulnerabilities(),  # 👈 vuelve a como lo tenías
         required=True,
         widget=forms.Select(attrs={
             'class': 'form-control',
-            'style': 'width: 450px;'  # Ajusta el ancho a tu gusto
+            'style': 'width: 450px;'
+        })
+    )
+
+    cve = forms.CharField(
+        required=False,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'style': 'width: 450px;',
+            'placeholder': 'Buscar CVE (ej: CVE-2024-12345)'
         })
     )
 
@@ -29,13 +45,13 @@ class FindForm(forms.ModelForm):
         fields = [
             'reconnaissance',
             'weaponization',
-            'vulnerability',
+            'vulnerability',  # tu lista desde vuln_list.txt
+            'cve',            # nuevo campo CVE
             'delivery',
             'exploitation',
             'installation',
             'commandcontrol',
             'actions',
-            
         ]
         widgets = {
             'reconnaissance': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
@@ -46,6 +62,10 @@ class FindForm(forms.ModelForm):
             'commandcontrol': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
             'actions': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['vulnerability'].choices = load_vulnerabilities()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

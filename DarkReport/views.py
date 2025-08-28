@@ -2,10 +2,21 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Project
 from .forms import *
+from collections import Counter
 
 def workspace(request):
     projects = Project.objects.all()
-    return render(request, 'workspace.html', {'projects': projects})
+    total_projects = projects.count()
+    total_reports = sum(p.reports.count() for p in projects)
+    total_finds = Find.objects.count()
+
+    context = {
+        'projects': projects,
+        'total_projects': total_projects,
+        'total_reports': total_reports,
+        'total_finds': total_finds
+    }
+    return render(request, 'workspace.html', context)
 
 def project_create(request):
     if request.method == "POST":
@@ -116,3 +127,70 @@ def delete_project(request, pk):
     if request.method == 'POST':
         project.delete()
         return redirect('workspace')  
+
+
+import requests
+
+def cve_lookup(request):
+    query = request.GET.get("q", "").strip()
+    if not query:
+        return JsonResponse([], safe=False)
+
+    url = f"https://services.nvd.nist.gov/rest/json/cves/2.0?cveId={query}"
+    headers = {
+        # "apiKey": "TU_CLAVE_DE_API"  # opcional
+    }
+
+    try:
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+
+        if "vulnerabilities" in data and len(data["vulnerabilities"]) > 0:
+            cve_info = data["vulnerabilities"][0]["cve"]
+            result = {
+                "id": cve_info.get("id"),
+                "descriptions": cve_info.get("descriptions", []),
+                "metrics": cve_info.get("metrics", {}),
+                "references": cve_info.get("references", [])
+            }
+            return JsonResponse([result], safe=False)
+        else:
+            return JsonResponse([], safe=False)
+
+    except requests.exceptions.HTTPError as e:
+        print(f"Error HTTP al buscar CVE: {e}")
+        return JsonResponse([], safe=False)
+    except Exception as e:
+        print(f"Error al buscar CVE: {e}")
+        return JsonResponse([], safe=False)
+
+
+
+def graph_data(request):
+    finds = Find.objects.all()
+
+    total = len(finds)
+    if total == 0:
+        return JsonResponse({
+            "cve": {"labels": [], "data": []},
+            "vulnerability": {"labels": [], "data": []}
+        })
+
+    # Contar ocurrencias de cada CVE
+    cve_counter = Counter(f.cve if f.cve else "Sin CVE" for f in finds)
+    vuln_counter = Counter(f.vulnerability if f.vulnerability else "Sin Vulnerabilidad" for f in finds)
+
+    # Convertir a porcentaje exacto
+    cve_labels = list(cve_counter.keys())
+    cve_data = [round(count / total * 100, 2) for count in cve_counter.values()]
+
+    vuln_labels = list(vuln_counter.keys())
+    vuln_data = [round(count / total * 100, 2) for count in vuln_counter.values()]
+
+    return JsonResponse({
+        "cve": {"labels": cve_labels, "data": cve_data},
+        "vulnerability": {"labels": vuln_labels, "data": vuln_data}
+    })
+
+

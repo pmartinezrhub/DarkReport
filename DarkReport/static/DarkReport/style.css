@@ -57,3 +57,8 @@ body {
     background-color: black;
     color: rgb(255, 255, 255);
 }
+
+.stat.card {
+    background-color: #4caf50; /* verde */
+    color: white;
+}

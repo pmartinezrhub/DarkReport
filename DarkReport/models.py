@@ -25,10 +25,13 @@ class Find(models.Model):
     installation = models.CharField(max_length=500)
     commandcontrol = models.CharField(max_length=500)
     actions = models.CharField(max_length=500)
-    vulnerability = models.TextField()  
+    
+    vulnerability = models.TextField()  # descripción propia del hallazgo
+    cve = models.CharField(max_length=32, blank=True, null=True)  # ID del CVE
 
     def __str__(self):
         return f"Findings for {self.report}"
+
 
 
 class Vuln(models.Model):

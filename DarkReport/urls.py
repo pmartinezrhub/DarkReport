@@ -19,6 +19,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.workspace, name='workspace'),  # Página principal del workspace
     path('admin/', admin.site.urls),
     path('workspace/', views.workspace, name='workspace'),
     path('projects/new/', views.project_create, name='project_create'),
@@ -29,6 +30,10 @@ urlpatterns = [
     path('find/<int:pk>/edit/', views.edit_find, name='edit_find'),
     path('find/<int:pk>/delete/', views.delete_find, name='delete_find'),
     path('report/<int:pk>/delete/', views.delete_report, name='delete_report'),
-    path('project/<int:pk>/delete/', views.delete_project, name='delete_project')
+    path('project/<int:pk>/delete/', views.delete_project, name='delete_project'),
+    path("cve-lookup/", views.cve_lookup, name="cve_lookup"),
+    path('graph-data/', views.graph_data, name='graph_data'),
+   
 ]
+
 
