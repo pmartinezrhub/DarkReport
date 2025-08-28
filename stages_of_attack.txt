@@ -1,40 +1,40 @@
-- Reconnaissance
+1 - Reconnaissance
 
 The attacker gathers information about the target (e.g., IP ranges, employee details, vulnerabilities, open ports).
 
 Goal: Identify weak points.
 
-- Weaponization
+2- Weaponization
 
 The attacker creates a malicious payload (e.g., malware, phishing email, exploit).
 
 Goal: Develop a weapon tailored to the target.
 
-- Delivery
+3- Delivery
 
 The attacker transmits the weapon to the target (e.g., phishing email, malicious link, infected USB, watering-hole attack).
 
 Goal: Deliver the attack vector.
 
-- Exploitation
+4- Exploitation
 
 The malicious code is executed by exploiting a system vulnerability or human error (e.g., clicking a link, opening a file).
 
 Goal: Break into the system.
 
-- Installation
+5- Installation
 
 The attacker installs malware (e.g., rootkits, Trojans, backdoors).
 
 Goal: Establish persistence inside the system.
 
-- Command & Control (C2)
+6- Command & Control (C2)
 
 The infected system connects to the attacker’s server for remote control.
 
 Goal: Maintain communication and control.
 
-- Actions on Objectives
+7 - Actions on Objectives
 
 The attacker executes their mission: data theft, ransomware deployment, sabotage, espionage, or disruption.
 

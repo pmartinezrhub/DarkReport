@@ -18,7 +18,10 @@ class FindForm(forms.ModelForm):
     vulnerability = forms.ChoiceField(
         choices=load_vulnerabilities(),
         required=True,
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'style': 'width: 450px;'  # Ajusta el ancho a tu gusto
+        })
     )
 
     class Meta:

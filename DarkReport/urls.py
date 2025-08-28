@@ -26,5 +26,9 @@ urlpatterns = [
     path('projects/<int:project_id>/add-report/', views.add_report, name='add_report'),
     path('add-report/', views.add_report, name='add_report'),
     path('report/<int:report_id>/add-find/', views.add_find, name='add_find'),
+    path('find/<int:pk>/edit/', views.edit_find, name='edit_find'),
+    path('find/<int:pk>/delete/', views.delete_find, name='delete_find'),
+    path('report/<int:pk>/delete/', views.delete_report, name='delete_report'),
+    path('project/<int:pk>/delete/', views.delete_project, name='delete_project')
 ]
 

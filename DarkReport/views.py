@@ -25,14 +25,13 @@ def project_create(request):
     return redirect('workspace')
 
 def project_detail(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
+    project = get_object_or_404(Project, pk=project_id)
     reports = project.reports.all()
-    form = ReportForm()
-
+    add_report_form = ReportForm()
     return render(request, 'project_detail.html', {
         'project': project,
         'reports': reports,
-        'form': form
+        'form': add_report_form
     })
 
 def add_report(request, project_id):
@@ -67,3 +66,53 @@ def add_find(request, report_id):
         'form': form,
         'report': report
     })
+
+
+def edit_find(request, pk):
+    find = get_object_or_404(Find, pk=pk)
+    project = find.report.project  # Ajusta según tus relaciones
+
+    if request.method == 'POST':
+        form = FindForm(request.POST, instance=find)
+        if form.is_valid():
+            form.save()
+            return redirect('project_detail', project_id=project.id)
+    else:
+        form = FindForm(instance=find)  # 🔹 Aquí se define el form en GET
+
+    return render(request, 'edit_find.html', {
+        'form': form,
+        'find': find,
+        'project': project
+    })
+
+def delete_find(request, pk):
+    find = get_object_or_404(Find, pk=pk)
+    project_id = find.report.project.id  # Ajusta según tus relaciones
+
+    if request.method == 'POST':
+        find.delete()
+        return redirect('project_detail', project_id=project_id)
+    
+    vulnerability = forms.ChoiceField(
+        choices=load_vulnerabilities(),
+        required=True,
+        widget=forms.Select(attrs={
+            'class': 'form-control',
+            'style': 'width: 200px;'  
+        })
+    )
+
+def delete_report(request, pk):
+    report = get_object_or_404(Report, pk=pk)
+    project_id = report.project.id
+
+    if request.method == 'POST':
+        report.delete()
+        return redirect('project_detail', project_id=project_id)
+
+def delete_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if request.method == 'POST':
+        project.delete()
+        return redirect('workspace')  

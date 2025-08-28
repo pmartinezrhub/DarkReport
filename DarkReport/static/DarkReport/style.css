@@ -3,7 +3,8 @@ body {
     height: 100vh;
     display: flex;
     overflow: hidden;
-    color: white;
+    color: rgb(255, 255, 255);
+    overflow-y: auto; /* permite scroll vertical */
 }
 .sidebar {
     width: 350px;
@@ -39,19 +40,20 @@ body {
     color:gray;
 
 }
-
 .h2 {
     color: white;
 }
-
 .list-group.mb-3 .list-group-item {
   background-color: black;
   color: white;
   border: 1px solid #333; /* opcional, para ver los bordes */
 }
-
-.accordion .accordion-item .accordion-button{
+.accordion .accordion-item .accordion-body {
     background-color: black;
-    color: white;
+    color: rgb(255, 255, 255);
+}
 
+.accordion-button {
+    background-color: black;
+    color: rgb(255, 255, 255);
 }

@@ -18,9 +18,15 @@
             {% for report in reports %}
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading{{ report.id }}">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ report.id }}" aria-expanded="false" aria-controls="collapse{{ report.id }}">
-                        Report: {{ report.target_name }} ({{ report.finds.count }} finds)
-                    </button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="accordion-button collapsed flex-grow-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ report.id }}" aria-expanded="false" aria-controls="collapse{{ report.id }}">
+                            Report: {{ report.target }} ({{ report.finds.count }} finds)
+                        </button>
+                        <!-- Botón Borrar Report -->
+                        <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteReportModal{{ report.id }}">
+                            🗑️ Borrar
+                        </button>
+                    </div>
                 </h2>
                 <div id="collapse{{ report.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ report.id }}" data-bs-parent="#reportsAccordion">
                     <div class="accordion-body">
@@ -29,26 +35,65 @@
                                 <li class="list-group-item">
                                     <strong>Find {{ forloop.counter }}:</strong>
                                     <ul>
-                                        <li><strong>🔎 Reconnaissance:</strong> {{ find.reconnaissance }}</li>
-                                        <li><strong>🔪 Weaponization:</strong> {{ find.weaponization }} </li>
-                                        <li><strong>⚠️ Vulnerability </strong> {{ find.vulnerability }}</li>
-                                        <li><strong>🎯 Delivery:</strong> {{ find.delivery }}</li>
-                                        <li><strong>🐞 Exploitation:</strong> {{ find.exploitation }}</li>
-                                        <li><strong>🎁 Installation:</strong> {{ find.installation }}</li>
-                                        <li><strong>🎮 Command/Control:</strong> {{ find.commandcontrol }}</li>
-                                        <li><strong>😈 Actions:</strong> {{ find.actions }}</li>
+                                        {% if find.reconnaissance %}<li>🔎 Reconnaissance: {{ find.reconnaissance }}</li>{% endif %}
+                                        {% if find.weaponization %}<li>🔪 Weaponization: {{ find.weaponization }}</li>{% endif %}
+                                        {% if find.vulnerability %}<li>⚠️ Vulnerability: {{ find.vulnerability }}</li>{% endif %}
+                                        {% if find.delivery %}<li>🎯 Delivery: {{ find.delivery }}</li>{% endif %}
+                                        {% if find.exploitation %}<li>🐞 Exploitation: {{ find.exploitation }}</li>{% endif %}
+                                        {% if find.installation %}<li>🎁 Installation: {{ find.installation }}</li>{% endif %}
+                                        {% if find.commandcontrol %}<li>🎮 Command/Control: {{ find.commandcontrol }}</li>{% endif %}
+                                        {% if find.actions %}<li>😈 Actions: {{ find.actions }}</li>{% endif %}
+
+                                        <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                                        <input type="button" value="Copy" class="btn btn-sm btn-info copy-btn"
+                                               data-copy-text="
+                                               {% if find.reconnaissance %}🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
+                                               {% if find.weaponization %}🔪 Weaponization: {{ find.weaponization }}{% endif %}
+                                               {% if find.vulnerability %}⚠️ Vulnerability: {{ find.vulnerability }}{% endif %}
+                                               {% if find.delivery %}🎯 Delivery: {{ find.delivery }}{% endif %}
+                                               {% if find.exploitation %}🐞 Exploitation: {{ find.exploitation }}{% endif %}
+                                               {% if find.installation %}🎁 Installation: {{ find.installation }}{% endif %}
+                                               {% if find.commandcontrol %}🎮 Command/Control: {{ find.commandcontrol }}{% endif %}
+                                               {% if find.actions %}😈 Actions: {{ find.actions }}{% endif %}
+                                               ">
                                     </ul>
                                 </li>
                             {% endfor %}
                         </ul>
 
-                        <!-- Botón para añadir un Find -->
                         <a href="{% url 'add_find' report.id %}" class="btn btn-sm btn-success mt-2">
                             Add Find
                         </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Modal Borrar Report -->
+            <div class="modal fade" id="deleteReportModal{{ report.id }}" tabindex="-1" aria-labelledby="deleteReportModalLabel{{ report.id }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form method="post" action="{% url 'delete_report' report.id %}">
+                    {% csrf_token %}
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="deleteReportModalLabel{{ report.id }}">Confirmar borrado</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                      ¿Estás seguro de que quieres borrar este report?
+                      <ul>
+                        <li>Target: {{ report.target }}</li>
+                        <li>Total Finds: {{ report.finds.count }}</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-danger">Borrar</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
             {% endfor %}
         </div>
     {% else %}
@@ -83,6 +128,21 @@
     </div>
   </div>
 </div>
+
+<!-- Script Copy Find -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const textToCopy = button.getAttribute('data-copy-text');
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                console.log("Copied to clipboard");
+            }).catch(err => console.error('Could not copy text: ', err));
+        });
+    });
+});
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

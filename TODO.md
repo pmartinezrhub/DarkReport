@@ -20,7 +20,7 @@ Fix add_find form style, in general fix style of forms :D
 Add findings files, images, txt, csv, pdf, logs, etc.
 Add Vuln selector to Explotation
 Disable No mandatory fields in forms
-
+Dashboard resume?
 
  
 
