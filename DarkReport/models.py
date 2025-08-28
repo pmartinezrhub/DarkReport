@@ -10,7 +10,7 @@ class Project(models.Model):
 
 class Report(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name="reports")
-    target_name = models.CharField(max_length=250)
+    target = models.CharField(max_length=250)
 
     def __str__(self):
         return f"{self.target_name} ({self.project})"
@@ -25,6 +25,7 @@ class Find(models.Model):
     installation = models.CharField(max_length=500)
     commandcontrol = models.CharField(max_length=500)
     actions = models.CharField(max_length=500)
+    vulnerability = models.TextField()  
 
     def __str__(self):
         return f"Findings for {self.report}"

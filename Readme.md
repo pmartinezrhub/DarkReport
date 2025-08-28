@@ -1,4 +1,4 @@
-# DarkReport
+# 🪲 DarkReport 
 Sometimes you dont find a tool than satisfies your requirements. 
 DarkReport is my own way of reporting tools. 
 I write in with Django Framework, with only two goals in mind:

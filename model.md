@@ -29,7 +29,7 @@ Machine - Target - Url - Domain, etc.
 - 🎁 [Installation]   --  Explanation FLI  (e.g., rootkits, Trojans, backdoors, webshell).
                           Why is this optional cause sometimes you dont need to make an instalation to obtain RCE. In terms of pentestings is should be done to escalate privileges, but not always mandatory. 
 
-- 🎮 [Command & Control C2] --  Explanation of how you can perform things than you should not. 
+- 🎮 Exploitation-  Explanation of how you can perform things than you should not. 
                                 Why is this optional, cause you dont need to explain how to take remote control.
                                 also you should install a RAT or similar tool for showing up to client.  
                                 You will explain in next stage.  
