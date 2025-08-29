@@ -38,7 +38,7 @@
                         <ul>
                             {% if find.reconnaissance %}<li>🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
                             {% if find.recon_file %}
-                            📎 File: <a href="{{ find.recon_scan_file.url }}" target="_blank">{{ find.recon_file.name }}</a></li>
+                            📎 File: <a href="{{ find.recon_file.url }}" target="_blank">{{ find.recon_file.name }}</a></li>
                             {% endif %}
                             {% if find.weaponization %}<li>🔪 Weaponization: {{ find.weaponization }}</li>{% endif %}
                             {% if find.delivery %}<li>🎯 Delivery: {{ find.delivery }}</li>{% endif %}
