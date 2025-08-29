@@ -19,7 +19,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.workspace, name='workspace'),  # Página principal del workspace
+    path('', views.workspace, name='workspace'), 
     path('admin/', admin.site.urls),
     path('workspace/', views.workspace, name='workspace'),
     path('projects/new/', views.project_create, name='project_create'),
