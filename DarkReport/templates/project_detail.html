@@ -26,10 +26,10 @@
                          <!-- Botón Export -->
                         <form method="post" action="{% url 'export_report' report.id %}">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-sm btn-info me-1">📤 Export</button>
+                            <button type="submit" class="btn btn-sm btn-dark me-1">📤 Export</button>
                         </form>
                         <!-- Botón Borrar Report -->
-                        <button type="button" class="btn btn-sm btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#deleteReportModal{{ report.id }}">
+                        <button type="button" class="btn btn-sm btn-dark ms-2" data-bs-toggle="modal" data-bs-target="#deleteReportModal{{ report.id }}">
                             🗑️ Delete
                         </button>
                     </div>
@@ -54,8 +54,8 @@
                             {% if find.commandcontrol %}<li>🎮 Command/Control: {{ find.commandcontrol }}</li>{% endif %}
                             {% if find.actions %}<li>😈 Actions: {{ find.actions }}</li>{% endif %}
 
-                            <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-warning">✏️ Edit</a>
-                            <input type="button" value="Copy" class="btn btn-sm btn-info copy-btn"
+                            <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-dark">✏️ Edit</a>
+                            <input type="button" value="Copy" class="btn btn-sm btn-dark copy-btn"
                                   data-copy-text="
                                   {% if find.reconnaissance %}🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
                                   {% if find.recon_scan_file %}📎 File: {{ find.recon_scan_file.url }}{% endif %}
@@ -73,7 +73,7 @@
 
                         </ul>
 
-                        <a href="{% url 'add_find' report.id %}" class="btn btn-sm btn-success mt-2">
+                        <a href="{% url 'add_find' report.id %}" class="btn btn-sm btn-dark mt-2">
                             Add Find
                         </a>
                     </div>

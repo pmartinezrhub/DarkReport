@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             html += `
                 <button class="btn btn-dark me-2" style="color:white;" onclick="window.location.href='/project/${projectId}/'">Open</button>
-                <button class="btn btn-info me-2" onclick="exportProject(${projectId})">📤 Export</button>
-                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" onclick="setDeleteProjectId(${projectId})">Delete</button>
+                <button class="btn btn-dark me-2" onclick="exportProject(${projectId})">📤 Export</button>
+                <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" onclick="setDeleteProjectId(${projectId})">Delete</button>
             `;
 
             contentDiv.innerHTML = html;

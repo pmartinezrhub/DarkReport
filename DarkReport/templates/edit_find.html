@@ -25,14 +25,14 @@
 
         <!-- Reconnaissance -->
         <div class="mb-3">
-            {{ form.reconnaissance.label_tag }}
+            🔎 {{ form.reconnaissance.label_tag }}
             {{ form.reconnaissance }}
             {{ form.reconnaissance.errors }}
         </div>
 
         <!-- Weaponization -->
         <div class="mb-3">
-            {{ form.weaponization.label_tag }}
+            🔪 {{ form.weaponization.label_tag }}
             {{ form.weaponization }}
             {{ form.weaponization.errors }}
         </div>
@@ -41,7 +41,7 @@
         <div class="row mb-3">
             <!-- Vulnerability -->
             <div class="col-md-6">
-                {{ form.vulnerability.label_tag }}
+                ⚠️{{ form.vulnerability.label_tag }}
                 {{ form.vulnerability }}
                 {{ form.vulnerability.errors }}
             </div>
@@ -56,42 +56,42 @@
         </div>
         <!-- Delivery -->
         <div class="mb-3">
-            {{ form.delivery.label_tag }}
+            🎯 {{ form.delivery.label_tag }}
             {{ form.delivery }}
             {{ form.delivery.errors }}
         </div>
 
         <!-- Exploitation -->
         <div class="mb-3">
-            {{ form.exploitation.label_tag }}
+           🐞 {{ form.exploitation.label_tag }}
             {{ form.exploitation }}
             {{ form.exploitation.errors }}
         </div>
 
         <!-- Installation -->
         <div class="mb-3">
-            {{ form.installation.label_tag }}
+           🎁 {{ form.installation.label_tag }}
             {{ form.installation }}
             {{ form.installation.errors }}
         </div>
 
         <!-- Command/Control -->
         <div class="mb-3">
-            <label for="{{ form.commandcontrol.id_for_label }}">Command & Control</label>
+            🎮 <label for="{{ form.commandcontrol.id_for_label }}">Command & Control</label>
             {{ form.commandcontrol }}
             {{ form.commandcontrol.errors }}
         </div>
 
         <!-- Actions -->
         <div class="mb-3">
-            {{ form.actions.label_tag }}
+            😈{{ form.actions.label_tag }}
             {{ form.actions }}
             {{ form.actions.errors }}
         </div>
 
-        <button type="submit" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" onclick="window.history.back()">Cancel</button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteFindModal">
+        <button type="submit" class="btn btn-dark">Save</button>
+        <button type="button" class="btn btn-dark" onclick="window.history.back()">Cancel</button>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteFindModal">
             🗑️ Delete
         </button>
     </form>

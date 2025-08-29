@@ -45,38 +45,38 @@ body {
 }
 
 .accordion .accordion-item .accordion-body {
-    background-color: black;
+    background-color: #1c2026;
     color: rgb(255, 255, 255);
 }
 
 .accordion-button {
-    background-color: black;
+    background-color:#1c2026;
     color: rgb(255, 255, 255);
 }
 
 /* Botón del acordeón cerrado */
 .accordion-button {
-    background-color: #000 !important;
+    background-color: #1c2026 !important;
     color: #fff !important;
     border: 1px solid #333 !important;
 }
 
 /* Botón cuando está abierto */
 .accordion-button:not(.collapsed) {
-    background-color: #111 !important; /* un negro un poco más claro */
+    background-color: #1c2026 !important; /* un negro un poco más claro */
     color: #4dff07 !important;  /* verde neón como contraste (puedes poner blanco si prefieres) */
     box-shadow: none !important; /* quita el glow azul */
 }
 
 /* Hover para ambos estados */
 .accordion-button:hover {
-    background-color: #222 !important;
+    background-color: #1c2026 !important;
     color: #fff !important;
 }
 
 
 .stat.card {
-    background-color: #000000; 
+    background-color: #1c2026; 
     color: white;
 }
 
@@ -90,7 +90,7 @@ body {
 }
 
 .list-group-item {
-  background-color: black;
+  background-color:#1c2026;
   color: white;
   border: 1px solid #333; /* opcional, para ver los bordes */
 }
