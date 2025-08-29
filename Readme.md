@@ -13,4 +13,14 @@ Run like any django project
 python manage.py runserver
 ```
 
+# Setup admin
+``` 
+python manage.py shell
+```
+now in the django shell:
+```
+>>> from django.contrib.auth.models import User
+>>> user = User.objects.create_user(username="admin", password="admin")
+```
+
 ## **Under development!!** 

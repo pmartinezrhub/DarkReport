@@ -19,9 +19,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.workspace, name='workspace'), 
+    path('', views.dashboard, name='dashboard'), 
     path('admin/', admin.site.urls),
-    path('workspace/', views.workspace, name='workspace'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     path('projects/new/', views.project_create, name='project_create'),
     path('project/<int:project_id>/', views.project_detail, name='project_detail'),
     path('projects/<int:project_id>/add-report/', views.add_report, name='add_report'),
@@ -33,7 +33,8 @@ urlpatterns = [
     path('project/<int:pk>/delete/', views.delete_project, name='delete_project'),
     path("cve-lookup/", views.cve_lookup, name="cve_lookup"),
     path('graph-data/', views.graph_data, name='graph_data'),
-   
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
 ]
 
 

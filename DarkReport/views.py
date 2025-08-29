@@ -3,8 +3,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Project
 from .forms import *
 from collections import Counter
+import requests
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib import messages
 
-def workspace(request):
+@login_required
+def dashboard(request):
     projects = Project.objects.all()
     total_projects = projects.count()
     total_reports = sum(p.reports.count() for p in projects)
@@ -16,8 +21,9 @@ def workspace(request):
         'total_reports': total_reports,
         'total_finds': total_finds
     }
-    return render(request, 'workspace.html', context)
+    return render(request, 'dashboard.html', context)
 
+@login_required
 def project_create(request):
     if request.method == "POST":
         name = request.POST.get("project_name")
@@ -31,10 +37,11 @@ def project_create(request):
                 "project_name": project.project_name
             })
 
-        return redirect('workspace')  # Cambia 'workspace' por tu página principal
+        return redirect('dashboard')  # Cambia 'dashboard' por tu página principal
 
-    return redirect('workspace')
+    return redirect('dashboard')
 
+@login_required
 def project_detail(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
     reports = project.reports.all()
@@ -45,6 +52,7 @@ def project_detail(request, project_id):
         'form': add_report_form
     })
 
+@login_required
 def add_report(request, project_id):
     project = get_object_or_404(Project, id=project_id)
 
@@ -60,6 +68,7 @@ def add_report(request, project_id):
 
     return render(request, 'add_report.html', {'form': form, 'project': project})
 
+@login_required
 def add_find(request, report_id):
     report = get_object_or_404(Report, id=report_id)
 
@@ -78,7 +87,7 @@ def add_find(request, report_id):
         'report': report
     })
 
-
+@login_required
 def edit_find(request, pk):
     find = get_object_or_404(Find, pk=pk)
     project = find.report.project  # Ajusta según tus relaciones
@@ -97,6 +106,7 @@ def edit_find(request, pk):
         'project': project
     })
 
+@login_required
 def delete_find(request, pk):
     find = get_object_or_404(Find, pk=pk)
     project_id = find.report.project.id  # Ajusta según tus relaciones
@@ -114,6 +124,7 @@ def delete_find(request, pk):
         })
     )
 
+@login_required
 def delete_report(request, pk):
     report = get_object_or_404(Report, pk=pk)
     project_id = report.project.id
@@ -122,15 +133,14 @@ def delete_report(request, pk):
         report.delete()
         return redirect('project_detail', project_id=project_id)
 
+@login_required
 def delete_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     if request.method == 'POST':
         project.delete()
-        return redirect('workspace')  
+        return redirect('dashboard')  
 
-
-import requests
-
+@login_required
 def cve_lookup(request):
     query = request.GET.get("q", "").strip()
     if not query:
@@ -166,7 +176,7 @@ def cve_lookup(request):
         return JsonResponse([], safe=False)
 
 
-
+@login_required
 def graph_data(request):
     finds = Find.objects.all()
 
@@ -192,5 +202,28 @@ def graph_data(request):
         "cve": {"labels": cve_labels, "data": cve_data},
         "vulnerability": {"labels": vuln_labels, "data": vuln_data}
     })
+
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)   # ✅ now it works
+            return redirect("/")        # dashboard or home
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    return render(request, "login.html")
+
+
+@login_required
+def logout_view(request):
+    auth_logout(request)                # ✅ uses alias
+    return redirect("login")
+
+
 
 

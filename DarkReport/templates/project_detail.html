@@ -105,7 +105,7 @@
     <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#addReportModal">
         Add Report
     </button>
-    <a href="{% url 'workspace' %}" class="btn btn-secondary mt-3">Back to Workspace</a>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary mt-3">Back to dashboard</a>
 </div>
 
 <!-- Modal de Add Report -->
@@ -131,19 +131,33 @@
 </div>
 
 <!-- Script Copy Find -->
+<!-- Script Copy Find -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const copyButtons = document.querySelectorAll('.copy-btn');
+
     copyButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const textToCopy = button.getAttribute('data-copy-text');
+            let rawText = button.getAttribute('data-copy-text') || "";
+
+            // 🔹 Limpieza del texto:
+            // - quita espacios al inicio/fin
+            // - convierte múltiples saltos en uno solo
+            // - elimina indentaciones extra
+            let textToCopy = rawText
+                .split("\n")                   // separa por líneas
+                .map(line => line.trim())      // quita espacios laterales
+                .filter(line => line.length)   // elimina líneas vacías
+                .join("\n");                   // vuelve a unir con saltos reales
+
             navigator.clipboard.writeText(textToCopy).then(() => {
-                console.log("Copied to clipboard");
-            }).catch(err => console.error('Could not copy text: ', err));
+                console.log("📋 Texto copiado correctamente");
+            }).catch(err => console.error('❌ No se pudo copiar: ', err));
         });
     });
 });
 </script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
