@@ -31,35 +31,40 @@
                 <div id="collapse{{ report.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ report.id }}" data-bs-parent="#reportsAccordion">
                     <div class="accordion-body">
                         <ul class="list-group">
-                            {% for find in report.finds.all %}
-                                <li class="list-group-item">
-                                    <strong>{{ forloop.counter }}:{% if find.vulnerability %} {{ find.vulnerability }}{% endif %} </strong>
+                {% for find in report.finds.all %}
+                    <li class="list-group-item">
+                        <strong>{{ forloop.counter }}:{% if find.vulnerability %} {{ find.vulnerability }}{% endif %} </strong>
 
-                                    <ul>
-                                        {% if find.reconnaissance %}<li>🔎 Reconnaissance: {{ find.reconnaissance }}</li>{% endif %}
-                                        {% if find.weaponization %}<li>🔪 Weaponization: {{ find.weaponization }}</li>{% endif %}
-                                        {% if find.delivery %}<li>🎯 Delivery: {{ find.delivery }}</li>{% endif %}
-                                        {% if find.exploitation %}<li>🐞 Exploitation: {{ find.exploitation }}</li>{% endif %}
-                                        {% if find.cve %}<li>⚠️ CVE: {{ find.cve }}</li>{% endif %}
-                                        {% if find.installation %}<li>🎁 Installation: {{ find.installation }}</li>{% endif %}
-                                        {% if find.commandcontrol %}<li>🎮 Command/Control: {{ find.commandcontrol }}</li>{% endif %}
-                                        {% if find.actions %}<li>😈 Actions: {{ find.actions }}</li>{% endif %}
+                        <ul>
+                            {% if find.reconnaissance %}<li>🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
+                            {% if find.recon_file %}
+                            📎 File: <a href="{{ find.recon_scan_file.url }}" target="_blank">{{ find.recon_file.name }}</a></li>
+                            {% endif %}
+                            {% if find.weaponization %}<li>🔪 Weaponization: {{ find.weaponization }}</li>{% endif %}
+                            {% if find.delivery %}<li>🎯 Delivery: {{ find.delivery }}</li>{% endif %}
+                            {% if find.exploitation %}<li>🐞 Exploitation: {{ find.exploitation }}</li>{% endif %}
+                            {% if find.cve %}<li>⚠️ CVE: {{ find.cve }}</li>{% endif %}
+                            {% if find.installation %}<li>🎁 Installation: {{ find.installation }}</li>{% endif %}
+                            {% if find.commandcontrol %}<li>🎮 Command/Control: {{ find.commandcontrol }}</li>{% endif %}
+                            {% if find.actions %}<li>😈 Actions: {{ find.actions }}</li>{% endif %}
 
-                                        <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-warning">✏️ Edit</a>
-                                        <input type="button" value="Copy" class="btn btn-sm btn-info copy-btn"
-                                               data-copy-text="
-                                               {% if find.reconnaissance %}🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
-                                               {% if find.weaponization %}🔪 Weaponization: {{ find.weaponization }}{% endif %}
-                                               {% if find.vulnerability %}⚠️ Vulnerability: {{ find.vulnerability }}{% endif %}
-                                               {% if find.delivery %}🎯 Delivery: {{ find.delivery }}{% endif %}
-                                               {% if find.exploitation %}🐞 Exploitation: {{ find.exploitation }}{% endif %}
-                                               {% if find.installation %}🎁 Installation: {{ find.installation }}{% endif %}
-                                               {% if find.commandcontrol %}🎮 Command/Control: {{ find.commandcontrol }}{% endif %}
-                                               {% if find.actions %}😈 Actions: {{ find.actions }}{% endif %}
-                                               ">
-                                    </ul>
-                                </li>
-                            {% endfor %}
+                            <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-warning">✏️ Edit</a>
+                            <input type="button" value="Copy" class="btn btn-sm btn-info copy-btn"
+                                  data-copy-text="
+                                  {% if find.reconnaissance %}🔎 Reconnaissance: {{ find.reconnaissance }}{% endif %}
+                                  {% if find.recon_scan_file %}📎 File: {{ find.recon_scan_file.url }}{% endif %}
+                                  {% if find.weaponization %}🔪 Weaponization: {{ find.weaponization }}{% endif %}
+                                  {% if find.vulnerability %}⚠️ Vulnerability: {{ find.vulnerability }}{% endif %}
+                                  {% if find.delivery %}🎯 Delivery: {{ find.delivery }}{% endif %}
+                                  {% if find.exploitation %}🐞 Exploitation: {{ find.exploitation }}{% endif %}
+                                  {% if find.installation %}🎁 Installation: {{ find.installation }}{% endif %}
+                                  {% if find.commandcontrol %}🎮 Command/Control: {{ find.commandcontrol }}{% endif %}
+                                  {% if find.actions %}😈 Actions: {{ find.actions }}{% endif %}
+                                  ">
+                        </ul>
+                    </li>
+                {% endfor %}
+
                         </ul>
 
                         <a href="{% url 'add_find' report.id %}" class="btn btn-sm btn-success mt-2">

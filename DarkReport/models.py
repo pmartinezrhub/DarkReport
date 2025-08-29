@@ -25,9 +25,11 @@ class Find(models.Model):
     installation = models.CharField(max_length=500)
     commandcontrol = models.CharField(max_length=500)
     actions = models.CharField(max_length=500)
-    
     vulnerability = models.TextField()  # descripción propia del hallazgo
     cve = models.CharField(max_length=32, blank=True, null=True)  # ID del CVE
+       
+    # Nuevo campo para el archivo de escaneo
+    recon_file = models.FileField(upload_to='recon/', blank=True, null=True)
 
     def __str__(self):
         return f"Findings for {self.report}"

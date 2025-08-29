@@ -36,7 +36,7 @@ class FindForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'class': 'form-control',
             'style': 'width: 450px;',
-            'placeholder': 'Buscar CVE (ej: CVE-2024-12345)'
+            'placeholder': 'CVE-XXXX-XXXX'
         })
     )
 
@@ -44,6 +44,7 @@ class FindForm(forms.ModelForm):
         model = Find
         fields = [
             'reconnaissance',
+            'recon_file',
             'weaponization',
             'vulnerability',  # tu lista desde vuln_list.txt
             'cve',            # nuevo campo CVE
@@ -52,15 +53,16 @@ class FindForm(forms.ModelForm):
             'installation',
             'commandcontrol',
             'actions',
+
         ]
         widgets = {
-            'reconnaissance': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'weaponization': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'delivery': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'exploitation': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'installation': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'commandcontrol': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
-            'actions': forms.Textarea(attrs={'rows': 1, 'class': 'form-control'}),
+            'reconnaissance': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'How discovery was done, Nmap, Nuclei...'}),
+            'weaponization': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'Which software can be used for attack'}),
+            'delivery': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'How the payload is delivered, POST, mail'}),
+            'exploitation': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'Provide a brief explanation of the vulnerability'}),
+            'installation': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'Malware installed, like RAT, virus'}),
+            'commandcontrol': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'Protocolos and ports used for C&C'}),
+            'actions': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': 'Which actions can be performed after the exploit'}),
         }
 
     def __init__(self, *args, **kwargs):

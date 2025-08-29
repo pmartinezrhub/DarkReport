@@ -37,21 +37,23 @@
             {{ form.weaponization.errors }}
         </div>
 
-        <!-- Vulnerability -->
-        <div class="mb-3">
-            {{ form.vulnerability.label_tag }}
-            {{ form.vulnerability }}
-            {{ form.vulnerability.errors }}
-        </div>
+        <!-- Vulnerability y CVE en la misma fila -->
+        <div class="row mb-3">
+            <!-- Vulnerability -->
+            <div class="col-md-6">
+                {{ form.vulnerability.label_tag }}
+                {{ form.vulnerability }}
+                {{ form.vulnerability.errors }}
+            </div>
 
-        <!-- CVE con autocomplete -->
-        <div class="mb-3 position-relative">
-            {{ form.cve.label_tag }}
-            {{ form.cve }}
-            {{ form.cve.errors }}
-            <ul id="cve-suggestions" class="list-group cve-suggestions"></ul>
+            <!-- CVE con autocomplete -->
+            <div class="col-md-6 position-relative">
+                {{ form.cve.label_tag }}
+                {{ form.cve }}
+                {{ form.cve.errors }}
+                <ul id="cve-suggestions" class="list-group cve-suggestions"></ul>
+            </div>
         </div>
-
         <!-- Delivery -->
         <div class="mb-3">
             {{ form.delivery.label_tag }}
@@ -75,7 +77,7 @@
 
         <!-- Command/Control -->
         <div class="mb-3">
-            {{ form.commandcontrol.label_tag }}
+            <label for="{{ form.commandcontrol.id_for_label }}">Command & Control</label>
             {{ form.commandcontrol }}
             {{ form.commandcontrol.errors }}
         </div>

@@ -67,3 +67,7 @@ body {
     text-align: right;
     
 }
+
+.container {
+    padding: auto;
+}
