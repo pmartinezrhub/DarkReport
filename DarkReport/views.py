@@ -73,7 +73,8 @@ def add_find(request, report_id):
     report = get_object_or_404(Report, id=report_id)
 
     if request.method == 'POST':
-        form = FindForm(request.POST)
+        # 👇 Aquí añadimos request.FILES
+        form = FindForm(request.POST, request.FILES)
         if form.is_valid():
             find = form.save(commit=False)
             find.report = report
@@ -86,6 +87,7 @@ def add_find(request, report_id):
         'form': form,
         'report': report
     })
+
 
 @login_required
 def edit_find(request, pk):
