@@ -7,9 +7,12 @@ import requests
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib import messages
+from django.http import HttpResponse
+import csv
 
 @login_required
 def dashboard(request):
+    project_id = request.GET.get('project')
     projects = Project.objects.all()
     total_projects = projects.count()
     total_reports = sum(p.reports.count() for p in projects)
@@ -19,7 +22,8 @@ def dashboard(request):
         'projects': projects,
         'total_projects': total_projects,
         'total_reports': total_reports,
-        'total_finds': total_finds
+        'total_finds': total_finds,
+        'selected_project_id': project_id
     }
     return render(request, 'dashboard.html', context)
 
@@ -190,7 +194,7 @@ def graph_data(request):
         })
 
     # Contar ocurrencias de cada CVE
-    cve_counter = Counter(f.cve if f.cve else "Sin CVE" for f in finds)
+    cve_counter = Counter(f.cve if f.cve else "no CVE" for f in finds)
     vuln_counter = Counter(f.vulnerability if f.vulnerability else "Sin Vulnerabilidad" for f in finds)
 
     # Convertir a porcentaje exacto
@@ -226,6 +230,60 @@ def logout_view(request):
     auth_logout(request)                # ✅ uses alias
     return redirect("login")
 
+@login_required
+def export_report(request, report_id):
+    report = Report.objects.get(id=report_id)
+    finds = report.finds.all()
 
+    # Crear la respuesta CSV
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="report_{report.id}.csv"'
 
+    writer = csv.writer(response)
+    writer.writerow(['Vulnerability', 'Reconnaissance', 'File', 'Weaponization', 'Delivery', 
+                     'Exploitation', 'CVE', 'Installation', 'Command/Control', 'Actions'])
 
+    for find in finds:
+        writer.writerow([
+            find.vulnerability or '',
+            find.reconnaissance or '',
+            find.recon_file.url if find.recon_file else '',
+            find.weaponization or '',
+            find.delivery or '',
+            find.exploitation or '',
+            find.cve or '',
+            find.installation or '',
+            find.commandcontrol or '',
+            find.actions or ''
+        ])
+
+    return response
+
+@login_required
+def export_project(request, project_id):
+    project = Project.objects.get(id=project_id)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="project_{project.id}.csv"'
+
+    writer = csv.writer(response)
+    # Encabezados
+    writer.writerow(['Report', 'Find ID', 'Vulnerability', 'Reconnaissance', 'File', 'Weaponization', 'Delivery', 
+                     'Exploitation', 'CVE', 'Installation', 'Command/Control', 'Actions'])
+
+    for report in project.reports.all():
+        for find in report.finds.all():
+            writer.writerow([
+                report.target,
+                find.id,
+                find.vulnerability or '',
+                find.reconnaissance or '',
+                find.recon_file.url if find.recon_file else '',
+                find.weaponization or '',
+                find.delivery or '',
+                find.exploitation or '',
+                find.cve or '',
+                find.installation or '',
+                find.commandcontrol or '',
+                find.actions or ''
+            ])
+    return response

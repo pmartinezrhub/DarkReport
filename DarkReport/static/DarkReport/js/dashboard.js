@@ -1,7 +1,56 @@
+window.onload = function () {
+    const contentDiv = document.querySelector('.content');
+    const selectedId = contentDiv.getAttribute('data-selected-project');
+    if (selectedId) {
+        const link = document.querySelector(`.project-link[data-project-id="${selectedId}"]`);
+        if (link) {
+            link.click();
+        }
+    }
+};
+
+function getCSRFToken() {
+    const name = 'csrftoken';
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function exportProject(projectId) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `/project/${projectId}/export/`;
+
+    // CSRF
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = 'csrfmiddlewaretoken';
+    csrfInput.value = getCSRFToken();
+    form.appendChild(csrfInput);
+
+    document.body.appendChild(form);
+    form.submit();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const projectLinks = document.querySelectorAll('.project-link');
     const contentDiv = document.querySelector('.content');
-
+    const selectedId = contentDiv.getAttribute('data-selected-project');
+    if (selectedId) {
+        const link = document.querySelector(`.project-link[data-project-id="${selectedId}"]`);
+        if (link) {
+            link.click();  // simula click en el proyecto seleccionado
+        }
+    }
     projectLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -31,6 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             html += `
                 <button class="btn btn-dark me-2" style="color:white;" onclick="window.location.href='/project/${projectId}/'">Open</button>
+                <button class="btn btn-info me-2" onclick="exportProject(${projectId})">📤 Export</button>
                 <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" onclick="setDeleteProjectId(${projectId})">Delete</button>
             `;
 

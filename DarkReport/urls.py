@@ -36,6 +36,8 @@ urlpatterns = [
     path('project/<int:pk>/delete/', views.delete_project, name='delete_project'),
     path("cve-lookup/", views.cve_lookup, name="cve_lookup"),
     path('graph-data/', views.graph_data, name='graph_data'),
+    path('export_report/<int:report_id>/', views.export_report, name='export_report'),
+    path('project/<int:project_id>/export/', views.export_project, name='export_project'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
 ] 

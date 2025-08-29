@@ -19,10 +19,10 @@ NEXT
 🔨 Add findings files, images, txt, csv, pdf, logs, etc.
 ✅ Add Vuln selector to Explotation
 ✅ Disable No mandatory fields in forms
-✅ Dashboard resume?
+✅ Dashboard resume
 ✅ Ajax CVE againts https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=%7Bquery%7D
 Clasify findings in reports adding a priority model?
 ✅Fix copy and paste from findings 
-Add export button for reports
-Add export button for project
+✅Add export button for reports
+✅Add export button for project
 ❓Add setting almost for password change once auth is avaliable.  
