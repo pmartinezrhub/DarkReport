@@ -232,16 +232,21 @@ def logout_view(request):
 
 @login_required
 def export_report(request, report_id):
-    report = Report.objects.get(id=report_id)
+    # Obtener el report
+    report = get_object_or_404(Report, id=report_id)
+    target = report.target       # Relacionado al report
+    project = report.project     # Relacionado al report
     finds = report.finds.all()
 
     # Crear la respuesta CSV
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="report_{report.id}.csv"'
+    response['Content-Disposition'] = f'attachment; filename="report_{project.project_name}_{report.target}.csv"'
 
     writer = csv.writer(response)
-    writer.writerow(['Vulnerability', 'Reconnaissance', 'File', 'Weaponization', 'Delivery', 
-                     'Exploitation', 'CVE', 'Installation', 'Command/Control', 'Actions'])
+    writer.writerow([
+        'Vulnerability', 'Reconnaissance', 'File', 'Weaponization', 'Delivery', 
+        'Exploitation', 'CVE', 'Installation', 'Command/Control', 'Actions'
+    ])
 
     for find in finds:
         writer.writerow([
@@ -263,7 +268,7 @@ def export_report(request, report_id):
 def export_project(request, project_id):
     project = Project.objects.get(id=project_id)
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="project_{project.id}.csv"'
+    response['Content-Disposition'] = f'attachment; filename="project_{project.project_name}.csv"'
 
     writer = csv.writer(response)
     # Encabezados

@@ -11,8 +11,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <h4>🪲 DarkReport </h4>
-
+        <a href="{% url 'dashboard' %}"><h4>🪲 DarkReport </h4></a>
     <div class="space-x-4">
         {% if user.is_authenticated %}
             <span>Welcome, {{ user.username }}</span>

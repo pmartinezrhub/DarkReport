@@ -5,7 +5,7 @@
 ✅ Add/delete/ a report
 ✅ Add/delete/modify a find
 ✅ login/logout (user magment django)
-🔨Export projects data to some format, csv, pdf, etc.
+✅ Export projects data to some format, csv, pdf, etc.
 
 3- Design a web view (is Django)
 ✅  - User login pass (options for captcha)
