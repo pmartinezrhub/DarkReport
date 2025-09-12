@@ -1,7 +1,7 @@
 ![](DarkReport/static/DarkReport/dark-report-logo.png)
 # DarkReport 
 
-DarkReport is reporting vulnerabilities tool. A writeup helper for pentestesters
+DarkReport is reporting vulnerabilities tool. A writeup helper for pentesters
 I write it with Django Framework, with only two goals in mind:
 - Make it easy to use.
 - Make it fast on doing pentesting reports. 
@@ -22,9 +22,6 @@ Features:
 File **settings.py**
 Modify  DEBUG = True to false if you run in production
 remember to adjust settings.py for static if you are on production
-
-Uncomment for production
-#'django.middleware.csrf.CsrfViewMiddleware', # only for demo is deactivated
 
 Run like any django project
 ``` 
