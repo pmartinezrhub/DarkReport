@@ -1,0 +1,155 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Add find for" %} {{ report.target }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'DarkReport/style.css' %}">
+    <style>
+        .cve-suggestions { position: absolute; z-index: 2000; max-height: 250px; overflow-y: auto; width: 100%; }
+        .modal textarea { width: 100%; min-height: 280px; resize: vertical; }
+    </style>
+</head>
+<body>
+<div class="container my-4">
+    <h6> {% trans "Add a find to report" %}:</h4>
+    <h2> {{ report.target }}</h2>
+    <hr>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                ⚠️ <label for="{{ form.vulnerability.id_for_label }}">{% trans "Vulnerability" %}</label>
+                {{ form.vulnerability }}
+                {{ form.vulnerability.errors }}
+                
+            </div>
+            <div class="col-md-6 position-relative">
+                {{ form.cve.label_tag }}
+                {{ form.cve }}
+                {{ form.cve.errors }}
+                <ul id="cve-suggestions" class="list-group cve-suggestions"></ul>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+              🔭<label for="{{ form.reconnaissance.id_for_label }}">{% trans "Reconnaissance" %}</label>
+              {{ form.reconnaissance }}
+              {{ form.reconnaissance.errors }}
+          </div>
+            <div class="col-md-6">
+                <br>
+                📂 {{ form.recon_file.label_tag }}
+                {{ form.recon_file }}
+                {{ form.recon_file.errors }}
+                {% if form.instance.pk and form.instance.recon_file %}
+                <p class="mt-2">File: <a href="{{ form.instance.recon_file.url }}" target="_blank">{{ form.instance.recon_file.name }}</a></p>
+                {% endif %}
+            </div>
+        </div>
+
+    
+        <div class="mb-3">
+            🚚 <label for="{{ form.delivery.id_for_label }}">{% trans "Delivery" %}</label>
+            {{ form.delivery }}
+            {{ form.delivery.errors }}
+        </div>
+
+        <div class="mb-3">
+            🪲<label for="{{ form.exploitation.id_for_label }}">{% trans "Exploitation" %}</label>
+            {{ form.exploitation }}
+            {{ form.exploitation.errors }}
+        </div>
+        <div class="d-flex gap-2 mb-3 flex-wrap align-items-start">
+            <div class="flex-grow-1">
+                💣 <label for="{{ form.weaponization.id_for_label }}">{% trans "Weaponization" %}</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalWeaponization">Add</button>
+                <div style="display:none;">{{ form.weaponization }}</div>
+            </div>
+            <div class="flex-grow-1">
+                🎁 <label for="{{ form.installation.id_for_label }}">{% trans "Installation" %}</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalInstallation">Add</button>
+                <div style="display:none;">{{ form.installation }}</div>
+            </div>
+            <div class="flex-grow-1">
+                🎮<label for="{{ form.commandcontrol.id_for_label }}">{% trans "Commandcontrol" %}</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCommand">Add</button>
+                <div style="display:none;">{{ form.commandcontrol }}</div>
+            </div>
+            <div class="flex-grow-1">
+                👽 <label for="{{ form.actions.id_for_label }}">{% trans "Actions" %}</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalActions">Add</button>
+                <div style="display:none;">{{ form.actions }}</div>
+            </div>
+            <div class="flex-shrink-1" style="max-width:450px;">
+                🚦<label for="{{ form.priority.id_for_label }}">{% trans "Priority" %}</label>
+                {{ form.priority }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{% trans "Save Find" %}</button>
+        <a href="{% url 'project_detail' report.project.id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    </form>
+</div>
+
+<!-- modals -->
+<div class="modal fade" id="modalWeaponization" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">{% trans "Weaponization" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><textarea id="weaponizationTextarea"></textarea></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button><button type="button" class="btn btn-primary btn-save" data-field="weaponization">Save</button></div>
+  </div></div>
+</div>
+<div class="modal fade" id="modalInstallation" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">{% trans "Installation" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><textarea id="installationTextarea"></textarea></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button><button type="button" class="btn btn-primary btn-save" data-field="installation">Save</button></div>
+  </div></div>
+</div>
+<div class="modal fade" id="modalCommand" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">{% trans "CommandControl" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><textarea id="commandcontrolTextarea"></textarea></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button><button type="button" class="btn btn-primary btn-save" data-field="commandcontrol">Save</button></div>
+  </div></div>
+</div>
+<div class="modal fade" id="modalActions" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header"><h5 class="modal-title">{% trans "Actions" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+    <div class="modal-body"><textarea id="actionsTextarea"></textarea></div>
+    <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button><button type="button" class="btn btn-primary btn-save" data-field="actions">Save</button></div>
+  </div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+  const input=document.getElementById("id_cve");
+  const suggestions=document.getElementById("cve-suggestions");
+  let timer=null; const cache={};
+  input.addEventListener("input",()=>{const q=input.value.trim().toUpperCase();suggestions.innerHTML="";if(timer)clearTimeout(timer);if(!q||!/^(CVE-\d{4}-\d{4,7})$/.test(q))return;timer=setTimeout(async()=>{try{if(cache[q]){showSuggestions([cache[q]]);return;}const res=await fetch(`/cve-lookup/?q=${encodeURIComponent(q)}`);if(!res.ok)return;const data=await res.json();if(!Array.isArray(data)||data.length===0){suggestions.innerHTML='<li class="list-group-item">No se encontraron CVEs</li>';return;}cache[q]=data[0];showSuggestions([data[0]]);}catch(e){}},600);});
+  function showSuggestions(items){suggestions.innerHTML="";items.forEach(item=>{const li=document.createElement("li");li.className="list-group-item list-group-item-action";li.style.cursor="pointer";const desc=(item.descriptions&&item.descriptions.length>0)?item.descriptions[0].value:"Sin descripción";li.textContent=`${item.id} — ${desc}`;li.addEventListener("click",()=>{input.value=item.id;suggestions.innerHTML="";});suggestions.appendChild(li);});}
+
+  function setupModal(field, modalId, textareaId){
+    const modalEl=document.getElementById(modalId);
+    const textarea=document.getElementById(textareaId);
+    const hidden=document.querySelector(`[name="${field}"]`);
+    modalEl.addEventListener('show.bs.modal',()=>{textarea.value=hidden.value||'';});
+    const saveBtn=modalEl.querySelector('.btn-save');
+    saveBtn.addEventListener('click',()=>{hidden.value=textarea.value;bootstrap.Modal.getInstance(modalEl).hide();});
+  }
+  setupModal('weaponization','modalWeaponization','weaponizationTextarea');
+  setupModal('installation','modalInstallation','installationTextarea');
+  setupModal('commandcontrol','modalCommand','commandcontrolTextarea');
+  setupModal('actions','modalActions','actionsTextarea');
+
+  document.addEventListener("click",e=>{if(!suggestions.contains(e.target)&&e.target!==input){suggestions.innerHTML="";}});
+});
+</script>
+</body>
+</html>
