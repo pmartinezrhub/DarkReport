@@ -19,8 +19,13 @@ Features:
    - Language locales
 
 ## Advise!!
+File **settings.py**
 Modify  DEBUG = True to false if you run in production
 remember to adjust settings.py for static if you are on production
+
+Uncomment for production
+#'django.middleware.csrf.CsrfViewMiddleware', # only for demo is deactivated
+
 Run like any django project
 ``` 
 python manage.py runserver
