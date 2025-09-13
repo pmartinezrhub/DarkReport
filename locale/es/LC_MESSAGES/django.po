@@ -164,7 +164,7 @@ msgstr "Reportes"
 #: DarkReport/templates/project_detail.html:18
 #: DarkReport/templates/project_detail.html:26
 msgid "Finds"
-msgstr "hallazgos"
+msgstr "Hallazgos"
 
 #: DarkReport/templates/dashboard.html:143
 msgid "Create new project"
