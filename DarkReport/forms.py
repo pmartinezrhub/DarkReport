@@ -24,7 +24,7 @@ class ReportForm(forms.ModelForm):
 class FindForm(forms.ModelForm):
     vulnerability = forms.ChoiceField(
         choices=load_vulnerabilities(),
-        required=True,
+        required=False,
         label=_("Vulnerability"),
         widget=forms.Select(attrs={
             'class': 'form-control',
@@ -76,19 +76,15 @@ class FindForm(forms.ModelForm):
             'installation': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': _('Malware installed, like RAT, virus')}),
             'commandcontrol': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': _('Protocols and ports used for C&C')}),
             'actions': forms.Textarea(attrs={'rows': 1, 'class': 'form-control', 'placeholder': _('Which actions can be performed after the exploit')}),
-            'priority': forms.Select(attrs={'class': 'form-control','style': 'width: 200px; display: inline-block;'}),
+            'priority': forms.Select(attrs={'class': 'form-control', 'style': 'width: 200px; display: inline-block;'}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.required = False
         self.fields['vulnerability'].choices = load_vulnerabilities()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['reconnaissance'].required = False
-        self.fields['weaponization'].required = False
-        self.fields['installation'].required = False
-        self.fields['commandcontrol'].required = False
 
 class VulnForm(forms.ModelForm):
     class Meta:
