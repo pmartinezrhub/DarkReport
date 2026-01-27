@@ -1,0 +1,69 @@
+Information Disclosure
+Remote Code Execution (RCE)
+File Inclusion (LFI, RFI)
+SQL Injection
+NoSQL Injection
+Command Injection
+LDAP Injection
+XML Injection
+XPATH Injection
+Buffer Overflow
+Integer Overflow
+Stack Overflow
+Heap Overflow
+Insecure Deserialization
+Directory Traversal (Path Traversal)
+Security Misconfiguration
+Cross-Site Scripting (XSS) – reflected, stored, DOM
+Cross-Site Request Forgery (CSRF)
+Session Hijacking
+Session Fixation
+Credential Stuffing
+Brute Force
+Default or Weak Passwords
+Broken Authentication
+Broken Access Control
+Privilege Escalation
+Open Redirect
+Server-Side Request Forgery (SSRF)
+XML External Entity (XXE)
+CRLF Injection
+Insecure Direct Object References (IDOR)
+Insecure APIs (API Security Issues)
+HTTP Header Injection
+Email Header Injection
+Cloud Metadata Exposure
+Vulnerable Components
+Insecure Dependencies
+DLL Hijacking
+Path Hijacking
+Race Conditions
+Time-of-Check Time-of-Use (TOCTOU)
+Insecure File Upload
+Malicious File Uploads
+Directory Listing Enabled
+Internal Services Exposure (Unnecessary Open Ports)
+Man-in-the-Middle (MitM)
+Replay Attacks
+Weak Cryptography (MD5, SHA1, RC4, etc.)
+Hardcoded Credentials
+Insecure Transport (HTTP instead of HTTPS)
+Missing HSTS
+Missing CSP (Content Security Policy)
+Misconfigured CORS
+DNS Spoofing / Cache Poisoning
+ARP Spoofing
+Click Injection (Mobile)
+Insecure Randomness (Non-cryptographic RNG)
+JSON Injection
+Host Header Injection
+Business Logic Flaws
+Supply Chain Attacks
+Dependency Typosquatting
+Insecure Backup Files
+Exposed Default Keys/Certificates
+Side-Channel Attacks (Timing, Spectre, Meltdown)
+Denial of Service (DoS)
+Distributed Denial of Service (DDoS)
+Amplification Attacks (DNS, NTP, etc.)
+HTTP Cache Poisoning

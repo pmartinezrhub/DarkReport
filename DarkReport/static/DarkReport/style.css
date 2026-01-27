@@ -1,0 +1,97 @@
+body {
+    background-color: #1c2026;
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    overflow-y: auto; /* permite scroll vertical */
+}
+.sidebar {
+    width: 350px;
+    background-color: #0c0d0e;
+    color: white;
+    padding: 15px;
+    overflow-y: auto;
+}
+.sidebar h4 {
+    color: #4dff07;
+    margin-bottom: 15px;
+}
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 8px;
+    border-radius: 6px;
+}
+.sidebar a:hover {
+    background-color: #495057;
+}
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+.text-muted {
+    color: grey;
+}
+.modal-content{
+    background-color:rgb(2, 2, 2);
+    color:gray;
+
+}
+.h2 {
+    color: white;
+}
+
+.accordion .accordion-item .accordion-body {
+    background-color: #1c2026;
+    color: rgb(255, 255, 255);
+}
+
+.accordion-button {
+    background-color:#1c2026;
+    color: rgb(255, 255, 255);
+}
+
+/* Botón del acordeón cerrado */
+.accordion-button {
+    background-color: #1c2026 !important;
+    color: #fff !important;
+    border: 1px solid #333 !important;
+}
+
+/* Botón cuando está abierto */
+.accordion-button:not(.collapsed) {
+    background-color: #1c2026 !important; /* un negro un poco más claro */
+    color: #4dff07 !important;  /* verde neón como contraste (puedes poner blanco si prefieres) */
+    box-shadow: none !important; /* quita el glow azul */
+}
+
+/* Hover para ambos estados */
+.accordion-button:hover {
+    background-color: #1c2026 !important;
+    color: #fff !important;
+}
+
+
+.stat.card {
+    background-color: #1c2026; 
+    color: white;
+}
+
+.footy {
+    text-align: right;
+    
+}
+
+.container {
+    padding: auto;
+}
+
+.list-group-item {
+  background-color:#1c2026;
+  color: white;
+  border: 1px solid #333; /* opcional, para ver los bordes */
+}
+
