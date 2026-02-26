@@ -72,17 +72,8 @@
 
                                     <a href="{% url 'edit_find' find.id %}" class="btn btn-sm btn-dark">✏️ {% trans "Edit" %}</a>
                                     <input type="button" value='📄{% trans "Copy"  %}' class="btn btn-sm btn-dark copy-btn"
-                                          data-copy-text="
-                                              {{ forloop.counter }}: {% if find.vulnerability %} ⚠️ {% trans 'Vulnerability' %} - {{ find.vulnerability }}{% endif %}
-                                              {% if find.cve %}CVE: {{ find.cve }}{% endif %}
-                                              {% if find.reconnaissance %}🔭 {% trans 'Reconnaissance' %}: {{ find.reconnaissance }}{% endif %}
-                                              {% if find.weaponization %}💣 {% trans 'Weaponization' %}: {{ find.weaponization }}{% endif %}
-                                              {% if find.delivery %}🚚 {% trans 'Delivery' %}: {{ find.delivery }}{% endif %}
-                                              {% if find.exploitation %}🪲 {% trans 'Exploitation' %}: {{ find.exploitation }}{% endif %}
-                                              {% if find.installation %}🎁 {% trans 'Installation' %}: {{ find.installation }}{% endif %}
-                                              {% if find.commandcontrol %}🎮  {% trans 'Commandcontrol' %}: {{ find.commandcontrol }}{% endif %}
-                                              {% if find.actions %}👽 {% trans 'Actions' %}: {{ find.actions }}{% endif %}
-                                              ">
+                                        data-copy-text="{% if find.vulnerability %}⚠️ {% trans 'Vulnerability' %} - {{ find.vulnerability }}\n\n{% endif %}{% if find.cve %}CVE: {{ find.cve }}\n\n{% endif %}{% if find.reconnaissance %}🔭 {% trans 'Reconnaissance' %}:\n{{ find.reconnaissance }}\n\n{% endif %}{% if find.weaponization %}💣 {% trans 'Weaponization' %}:\n{{ find.weaponization }}\n\n{% endif %}{% if find.delivery %}🚚 {% trans 'Delivery' %}:\n{{ find.delivery }}\n\n{% endif %}{% if find.exploitation %}🪲 {% trans 'Exploitation' %}:\n{{ find.exploitation }}\n\n{% endif %}{% if find.installation %}🎁 {% trans 'Installation' %}:\n{{ find.installation }}\n\n{% endif %}{% if find.commandcontrol %}🎮 {% trans 'Commandcontrol' %}:\n{{ find.commandcontrol }}\n\n{% endif %}{% if find.actions %}👽 {% trans 'Actions' %}:\n{{ find.actions }}\n\n{% endif %}"
+                                    >
                                 </ul>
                             </li>
                         {% endfor %}
@@ -166,16 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     copyButtons.forEach(button => {
         button.addEventListener('click', () => {
-            let rawText = button.getAttribute('data-copy-text') || "";
-            let textToCopy = rawText
-                .split("\n")                 
-                .map(line => line.trim())     
-                .filter(line => line.length)   
-                .join("\n");                  
-
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                console.log("📋 Text copied -ok ");
-            }).catch(err => console.error('❌ error on copy: ', err));
+            const rawText = button.getAttribute('data-copy-text') || "";
+            const textToCopy = rawText.replace(/\\n/g, "\n").trim();
+            navigator.clipboard.writeText(textToCopy);
         });
     });
 });
