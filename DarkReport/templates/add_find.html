@@ -52,13 +52,6 @@
             </div>
         </div>
 
-    
-        <div class="mb-3">
-            🚚 <label for="{{ form.delivery.id_for_label }}">{% trans "Delivery" %}</label>
-            {{ form.delivery }}
-            {{ form.delivery.errors }}
-        </div>
-
         <div class="mb-3">
             🪲<label for="{{ form.exploitation.id_for_label }}">{% trans "Exploitation" %}</label>
             {{ form.exploitation }}
@@ -74,6 +67,12 @@
                 🎁 <label for="{{ form.installation.id_for_label }}">{% trans "Installation" %}</label>
                 <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalInstallation">Add</button>
                 <div style="display:none;">{{ form.installation }}</div>
+            </div>
+            <div class="flex-grow-1">
+                🚚 <label for="{{ form.delivery.id_for_label }}">{% trans "Delivery" %}</label>
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelivery">Add</button>
+                <div style="display:none;">{{ form.delivery }}</div>
+                {{ form.delivery.errors }}
             </div>
             <div class="flex-grow-1">
                 🎮<label for="{{ form.commandcontrol.id_for_label }}">{% trans "Commandcontrol" %}</label>
@@ -109,6 +108,21 @@
     <div class="modal-header"><h5 class="modal-title">{% trans "Installation" %}</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
     <div class="modal-body"><textarea id="installationTextarea"></textarea></div>
     <div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button><button type="button" class="btn btn-primary btn-save" data-field="installation">Save</button></div>
+  </div></div>
+</div>
+<div class="modal fade" id="modalDelivery" tabindex="-1">
+  <div class="modal-dialog modal-lg"><div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">{% trans "Delivery" %}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <textarea id="deliveryTextarea"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans "Close" %}</button>
+      <button type="button" class="btn btn-primary btn-save" data-field="delivery">Save</button>
+    </div>
   </div></div>
 </div>
 <div class="modal fade" id="modalCommand" tabindex="-1">
