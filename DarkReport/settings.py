@@ -144,3 +144,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # URL base para acceder a esos archivos
 MEDIA_URL = "/media/"
+
+# security
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
