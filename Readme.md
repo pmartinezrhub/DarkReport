@@ -17,6 +17,7 @@ Features:
    - CVEs  https://services.nvd.nist.gov AJAX Integrated API
    - File upload
    - Language locales
+   - CVSS Calculator
 
 ## Advise!!
 File **settings.py**
