@@ -95,3 +95,13 @@ body {
   border: 1px solid #333; /* opcional, para ver los bordes */
 }
 
+.form-cvss {
+    width: 400px;
+    margin: 40px auto;
+    border: 3px solid red;
+}
+
+.form-cvss button {
+    display: block;
+    margin: 20px auto 0;
+}

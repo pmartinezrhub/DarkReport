@@ -26,6 +26,10 @@
       {% endif %}
   </div>
     <hr>
+      <a href="{% url 'calculator' %}" class="btn btn-sm" style="color:white">
+          {% trans "CVSS Calc" %}
+      </a>
+    <hr>
         {% trans "Projects" %}:
         <ul class="list-unstyled" id="project_list">
             {% for project in projects %}
@@ -57,6 +61,8 @@
         <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#newProjectModal" style="color:white">
             + {% trans "New Project" %}
         </button>
+        <hr>
+
 
     </div>
 

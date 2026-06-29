@@ -10,6 +10,20 @@ from django.contrib import messages
 from django.http import HttpResponse
 import csv
 from django.db.models import Case, When, Value, IntegerField
+from cvss import CVSS3
+
+@login_required
+def get_dashboard_context(request):
+    project_id = request.GET.get("project")
+    projects = Project.objects.all()
+
+    return {
+        "projects": projects,
+        "total_projects": projects.count(),
+        "total_reports": sum(p.reports.count() for p in projects),
+        "total_finds": Find.objects.count(),
+        "selected_project_id": project_id,
+    }
 
 @login_required
 def dashboard(request):
@@ -18,14 +32,7 @@ def dashboard(request):
     total_projects = projects.count()
     total_reports = sum(p.reports.count() for p in projects)
     total_finds = Find.objects.count()
-
-    context = {
-        'projects': projects,
-        'total_projects': total_projects,
-        'total_reports': total_reports,
-        'total_finds': total_finds,
-        'selected_project_id': project_id
-    }
+    context = get_dashboard_context(request)
     return render(request, 'dashboard.html', context)
 
 @login_required
@@ -308,3 +315,46 @@ def export_project(request, project_id):
                 find.priority or ''
             ])
     return response
+
+
+
+@login_required
+def calculator_view(request):
+    result = None
+
+    if request.method == "POST":
+        form = CVSS31Form(request.POST)
+
+        if form.is_valid():
+            d = form.cleaned_data
+
+            vector = (
+                f"CVSS:3.1/"
+                f"AV:{d['av']}/"
+                f"AC:{d['ac']}/"
+                f"PR:{d['pr']}/"
+                f"UI:{d['ui']}/"
+                f"S:{d['s']}/"
+                f"C:{d['c']}/"
+                f"I:{d['i']}/"
+                f"A:{d['a']}"
+            )
+
+            cvss = CVSS3(vector)
+
+            result = {
+                "vector": vector,
+                "score": cvss.scores()[0],
+                "severity": cvss.severities()[0],
+            }
+    else:
+        form = CVSS31Form()
+
+    context = get_dashboard_context(request)
+    
+    context.update({
+        "form": form,
+        "result": result,
+    })
+
+    return render(request, "cvss_calc.html", context)

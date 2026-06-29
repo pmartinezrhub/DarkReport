@@ -43,6 +43,7 @@ urlpatterns = [
     path('project/<int:project_id>/export/', views.export_project, name='export_project'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('calculator/', views.calculator_view, name='calculator'),
     path('i18n/', include('django.conf.urls.i18n')),
 
 ] 

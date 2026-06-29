@@ -104,3 +104,51 @@ class VulnForm(forms.ModelForm):
     class Meta:
         model = Vuln
         fields = ['vuln_name']
+
+
+''' CVSS calculator '''
+
+AV = [
+    ("N", "Network"),
+    ("A", "Adjacent"),
+    ("L", "Local"),
+    ("P", "Physical"),
+]
+
+AC = [
+    ("L", "Low"),
+    ("H", "High"),
+]
+
+PR = [
+    ("N", "None"),
+    ("L", "Low"),
+    ("H", "High"),
+]
+
+UI = [
+    ("N", "None"),
+    ("R", "Required"),
+]
+
+S = [
+    ("U", "Unchanged"),
+    ("C", "Changed"),
+]
+
+CIA = [
+    ("N", "None"),
+    ("L", "Low"),
+    ("H", "High"),
+]
+
+
+class CVSS31Form(forms.Form):
+    av = forms.ChoiceField(choices=AV)
+    ac = forms.ChoiceField(choices=AC)
+    pr = forms.ChoiceField(choices=PR)
+    ui = forms.ChoiceField(choices=UI)
+    s = forms.ChoiceField(choices=S)
+    c = forms.ChoiceField(choices=CIA)
+    i = forms.ChoiceField(choices=CIA)
+    a = forms.ChoiceField(choices=CIA)
