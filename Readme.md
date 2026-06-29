@@ -1,4 +1,5 @@
-![](DarkReport/static/DarkReport/dark-report-logo.png)
+![dashboard](screenshots/dashboard.png)
+
 # DarkReport 
 
 DarkReport is reporting vulnerabilities tool. A writeup helper for pentesters
